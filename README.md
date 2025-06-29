@@ -1,10 +1,8 @@
 # AeroSketch
 
-AeroSketch is an AI-first aerodynamic simulation engine. This repository contains the backend service used for serving simulation results.
+AeroSketch is an AI-first aerodynamic simulation backend. This scaffold exposes several API endpoints using Flask.
 
-## Running locally
-
-Create a virtual environment and install dependencies from `requirements.txt`:
+## Setup
 
 ```bash
 python -m venv .venv
@@ -12,10 +10,22 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Run the Flask development server:
+## Running the server
 
 ```bash
-python -m aerosketch.app
+python run.py
 ```
 
-The service exposes a `/simulate` endpoint that currently returns mocked pressure and velocity fields in base64-encoded form.
+## API Endpoints
+- `POST /simulate`
+- `POST /set_parameters`
+- `GET /get_results`
+- `POST /suggest_optimization`
+
+All endpoints return dummy JSON data for now.
+
+## Running Tests
+
+```bash
+pytest
+```

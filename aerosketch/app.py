@@ -1,24 +1,17 @@
-"""Flask application providing the AeroSketch API."""
-
-from __future__ import annotations
-
-from flask import Flask, jsonify, request
-
-from .simulation import SimulationParameters, run_mock_simulation
-
-app = Flask(__name__)
+from flask import Flask
 
 
-@app.route("/simulate", methods=["POST"])
-def simulate() -> tuple[str, int]:
-    """Handle a simulation request with mocked results."""
-    data = request.get_json(force=True) or {}
-    params = SimulationParameters(**{k: data.get(k, v) for k, v in SimulationParameters().__dict__.items()})
+def create_app() -> Flask:
+    app = Flask(__name__)
 
-    pressure_b64, velocity_b64 = run_mock_simulation(params)
+    from .routes.simulate import bp as simulate_bp
+    from .routes.parameters import bp as parameters_bp
+    from .routes.results import bp as results_bp
+    from .routes.optimization import bp as optimization_bp
 
-    return jsonify({"pressure": pressure_b64, "velocity": velocity_b64})
+    app.register_blueprint(simulate_bp)
+    app.register_blueprint(parameters_bp)
+    app.register_blueprint(results_bp)
+    app.register_blueprint(optimization_bp)
 
-
-if __name__ == "__main__":
-    app.run(debug=True)
+    return app
