@@ -13,11 +13,18 @@ def client():
 
 
 def test_simulate(client):
-    resp = client.post('/simulate', json={})
+    payload = {
+        "shape": "circle",
+        "velocity": 5.0,
+        "fluid_density": 1.0,
+        "area": 2.0,
+        "angle_of_attack": 0.0,
+    }
+    resp = client.post('/simulate', json=payload)
     assert resp.status_code == 200
     json_data = resp.get_json()
-    assert 'drag_coefficient' in json_data
-    assert 'lift_coefficient' in json_data
+    assert 'drag_force' in json_data
+    assert 'lift_force' in json_data
 
 
 def test_set_parameters(client):
