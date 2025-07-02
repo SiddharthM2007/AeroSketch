@@ -4,6 +4,7 @@ import math
 import numpy as np
 
 from ..session_state import session_state
+from ..models import constants as C
 
 
 def _generate_flow_field(radius, velocity, angle_deg, fluid_density, grid=20):
@@ -54,11 +55,11 @@ def _compute_forces(velocity, angle_deg, area, density):
 
 
 def run_simulation(params):
-    shape = params.get("shape", "circle")
-    radius = float(params.get("radius", 1.0))
-    velocity = float(params.get("velocity", 1.0))
-    angle = float(params.get("angle_of_attack", 0.0))
-    density = float(params.get("fluid_density", 1.225))
+    shape = params.get("shape", C.DEFAULT_SHAPE)
+    radius = float(params.get("radius", C.DEFAULT_RADIUS))
+    velocity = float(params.get("velocity", C.DEFAULT_VELOCITY))
+    angle = float(params.get("angle_of_attack", C.DEFAULT_ANGLE_OF_ATTACK))
+    density = float(params.get("fluid_density", C.DEFAULT_FLUID_DENSITY))
     area = float(params.get("area", math.pi * radius ** 2))
 
     pressure_map, velocity_field = _generate_flow_field(radius, velocity, angle, density)
@@ -78,6 +79,7 @@ def run_simulation(params):
 
 
 def set_parameters(params):
+    session_state["parameters"] = params
     return {"status": "parameters updated"}
 
 

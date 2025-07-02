@@ -1,0 +1,7 @@
+# Default constants used across the simulation engine
+DEFAULT_SHAPE = "circle"
+DEFAULT_RADIUS = 1.0
+DEFAULT_VELOCITY = 1.0
+DEFAULT_ANGLE_OF_ATTACK = 0.0
+DEFAULT_FLUID_DENSITY = 1.225
+DEFAULT_AREA = 1.0

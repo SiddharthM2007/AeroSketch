@@ -1,13 +1,16 @@
 """Basic request validation utilities."""
 
+from ..models import constants as C
+
+
 def validate_simulation_params(data):
     defaults = {
-        "shape": "circle",
-        "radius": 1.0,
-        "velocity": 1.0,
-        "angle_of_attack": 0.0,
-        "fluid_density": 1.225,
-        "area": 1.0,
+        "shape": C.DEFAULT_SHAPE,
+        "radius": C.DEFAULT_RADIUS,
+        "velocity": C.DEFAULT_VELOCITY,
+        "angle_of_attack": C.DEFAULT_ANGLE_OF_ATTACK,
+        "fluid_density": C.DEFAULT_FLUID_DENSITY,
+        "area": C.DEFAULT_AREA,
     }
 
     validated = {}
