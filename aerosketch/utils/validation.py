@@ -6,6 +6,8 @@ def validate_simulation_params(data):
         "radius": 1.0,
         "velocity": 1.0,
         "angle_of_attack": 0.0,
+        "fluid_density": 1.225,
+        "area": 1.0,
     }
 
     validated = {}

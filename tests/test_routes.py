@@ -16,8 +16,10 @@ def test_simulate(client):
     resp = client.post('/simulate', json={})
     assert resp.status_code == 200
     json_data = resp.get_json()
-    assert 'drag_coefficient' in json_data
-    assert 'lift_coefficient' in json_data
+    assert 'drag_force' in json_data
+    assert 'lift_force' in json_data
+    assert 'CL' in json_data
+    assert 'CD' in json_data
 
 
 def test_set_parameters(client):
@@ -38,3 +40,12 @@ def test_suggest_optimization(client):
     resp = client.post('/suggest_optimization', json={})
     assert resp.status_code == 200
     assert 'suggestion' in resp.get_json()
+
+
+def test_dashboard_and_visualize(client):
+    client.post('/simulate', json={})
+    dash = client.get('/dashboard')
+    assert dash.status_code == 200
+    viz = client.get('/visualize')
+    assert viz.status_code == 200
+    assert viz.content_type == 'image/png'

@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+  <body>
+    <h1>Simulation Dashboard</h1>
+    {% if data %}
+    <ul>
+      <li>Lift Force: {{ data.lift_force }}</li>
+      <li>Drag Force: {{ data.drag_force }}</li>
+      <li>CL: {{ data.CL }}</li>
+      <li>CD: {{ data.CD }}</li>
+    </ul>
+    <img src="{{ url_for('dashboard.visualize') }}" alt="Visualization">
+    {% else %}
+    <p>No simulation results available.</p>
+    {% endif %}
+  </body>
+</html>
