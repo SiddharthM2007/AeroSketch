@@ -13,11 +13,13 @@ def client():
 
 
 def test_simulate(client):
-    resp = client.post('/simulate', json={})
+    resp = client.post('/simulate', json={"velocity": 10, "radius": 1})
     assert resp.status_code == 200
     json_data = resp.get_json()
     assert 'drag_coefficient' in json_data
     assert 'lift_coefficient' in json_data
+    assert 'pressure_map' in json_data
+    assert 'velocity_field' in json_data
 
 
 def test_set_parameters(client):
@@ -27,6 +29,8 @@ def test_set_parameters(client):
 
 
 def test_get_results(client):
+    # trigger a simulation first
+    client.post('/simulate', json={})
     resp = client.get('/get_results')
     assert resp.status_code == 200
     json_data = resp.get_json()
@@ -38,3 +42,10 @@ def test_suggest_optimization(client):
     resp = client.post('/suggest_optimization', json={})
     assert resp.status_code == 200
     assert 'suggestion' in resp.get_json()
+
+
+def test_dashboard(client):
+    client.post('/simulate', json={})
+    resp = client.get('/dashboard')
+    assert resp.status_code == 200
+    assert b'Simulation Results' in resp.data
